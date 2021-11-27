@@ -1,0 +1,218 @@
+body{
+    font-family: Roboto;
+}
+
+H2{
+    font-size: 15px;
+}
+/*bouton menu et croix affichage menu*/
+.menubars{
+    font-size: 50px;
+    opacity: 100%;
+    transition: all 0.7s ease 0s;
+    
+}
+
+.menubarsoff{
+opacity: 0%;
+transition: all 0.7s ease 0s;
+}
+
+#menubars{
+    position: absolute;
+    left: 20px;
+    top:10px;
+    z-index:3000;
+}
+
+#cross {
+    font-size: 30px;
+    float:left;
+    margin:20px 20px;
+    transform:rotate(45deg);
+ }
+/*transition menu*/
+.menuoff{
+    position: relative;
+    left:-500px;
+    transition: all 0.7s ease 0s;
+}
+
+
+
+/*bouton ajouter */
+.add{
+    width:150px;
+    margin-left: 150px;
+    margin-bottom: 20px;
+}
+
+.add button{
+    margin-left:10px;
+    border-radius: 50px;
+    border:0;
+    width:30px;
+    height: 30PX;
+    background-color : rgb(127, 224, 127)
+}
+.add button:hover{
+   background-color: blue;
+
+}
+
+.add button:active{
+    width: 40px;
+    height:40PX;
+    transition: all 0.1s
+ 
+ }
+
+button[class="add"]{
+    border-radius:50px;
+    background-color: green;
+}
+
+
+
+#map { 
+    float: right;
+    height: 1000px;
+    width : 100%;
+    border-radius : 10px;
+
+ }
+
+ 
+/*tout le menu*/
+#menu{
+    float : left;
+    
+    position:absolute;
+    z-index: 1000;
+    background-color: rgb(37, 36, 36);
+    background: rgba( 255, 255, 255, 0.45 );
+    box-shadow: 0 8px 32px 0 rgba(6, 22, 235, 0.37);
+    backdrop-filter: blur( 6.5px );
+    -webkit-backdrop-filter: blur( 6.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width : 30%;
+    height:1000px; 
+}
+.menu{
+    position: relative;
+    left:0px;
+    
+    transition: all 0.7s ease 0s;
+}
+
+/* résultat recherche*/
+#result{
+    margin-left: 20px;
+}
+/* filtre et barre de recherche*/
+ li{
+    margin-top : 0;
+    list-style: none;
+ }
+
+ ul{
+     margin : 0;
+ }
+
+.center{
+    position : relative;
+    left:20PX;
+    margin: 0;
+    margin-top: 20px;
+}
+
+.search{
+    border-radius : 20px;
+    border-color : grey;
+    background-color : grey;
+    box-shadow: 0;
+}
+
+#searchbox {
+    width: 300px;
+    position: relative;
+    left: 100px
+    }
+#list{
+    position : absolute;
+    right:300px;
+}
+
+#list li{
+    margin:0;
+    position: absolute;
+}
+    #searchbox input {
+    outline: none;
+    }
+    input:focus::-webkit-input-placeholder {
+    color: transparent;
+    }
+    input:focus:-moz-placeholder {
+    color: transparent;
+    }
+    input:focus::-moz-placeholder {
+    color: transparent;
+    }
+
+    /*Barre de recherche*/
+    #searchbox input[type= "text"] {
+    background: url(http://2.bp.blogspot.com/-xpzxYc77ack/VDpdOE5tzMI/AAAAAAAAAeQ/TyXhIfEIUy4/s1600/search-dark.png) no-repeat 10px 13px #f2f2f2;
+    border: 2px solid #f2f2f2;
+    font: bold 12px Arial,Helvetica,Sans-serif;
+    color: #6A6F75;
+    width: 160px;
+    padding: 1px 17px 1px 100px;
+    -webkit-border-radius: 5px 0px 0px 5px;
+    -moz-border-radius: 5px 0px 0px 5px;
+    border-radius: 5px 0px 0px 5px;
+    text-shadow: 0 2px 3px #fff;
+    -webkit-transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+    transition: all 0.7s ease 0s;
+    }
+    #searchbox input[type= "text"]:focus {
+    background: #f7f7f7;
+    border: 2px solid #f7f7f7;
+    width: 200px;
+    padding-left: 10px;
+    }
+    
+    #button-submit{
+    background: url(http://4.bp.blogspot.com/-slkXXLUcxqg/VEQI-sJKfZI/AAAAAAAAAlA/9UtEyStfDHw/s1600/slider-arrow-right.png) no-repeat;
+    margin-left: -40px;
+    border-width: 0px;
+    width: 43px;
+    height: 45px;
+    }
+
+/* responsive */
+    @media screen and (max-width: 1200px) {
+        #map { 
+            float: right;
+            height: 800px;
+            width : 100%;
+            border-radius : 10px;
+         }
+        
+         #menu{
+            float : left;
+            width : 50%;
+        }
+      }
+
+      @media screen and (max-width: 700px) {
+        .add{
+            width:100%;
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
+        
+      }

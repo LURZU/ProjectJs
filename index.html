@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="crossorigin=""></script>
+    <link src="https://tiles.aqicn.org/tiles/{aqi}/{z}/{x}/{y}.png">
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/brands.min.css" integrity="sha512-lCU0XyQA8yobR7ychVxEOU5rcxs0+aYh/9gNDLaybsgW9hdrtqczjfKVNIS5doY0Y5627/+3UVuoGv7p8QsUFw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+
+<div id="menu" class="menu">
+   
+    <div class="oldClass" onclick="changeClass()"id="cross"><a><i class="fas fa-plus"></i></a></div>
+    <form id= "searchbox"  autocomplete= "off">
+        <input name ="q" id= "button-submit" type= "text" value="" >
+        <input id= "button-submit" type= "submit" value="" >
+    </form>
+    <div id="result">
+        <h2> Résultat recherche : </h2>
+      <div class="meteo"></div>
+    </div>
+    <div class="add"><label>Montpellier</label><button class="addbutton" class="fa-solid fa-plus"  text-align="center"> <i href="#" class="fa-solid fa-plus"> </i></button></div>
+    
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+    
+            <!-- <ul class="list">
+               <li class="accordion-body"><br><input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"><label class="form-check-label" for="flexSwitchCheckDefault">Zone de chaleur ></label></li>
+                <li><br><input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"><label class="form-check-label" for="flexSwitchCheckDefault">Tempête ></label></li>
+                <li><br><input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"><label class="form-check-label" for="flexSwitchCheckDefault">Pollution plastique ></label></li>
+                <li><br><input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"><label class="form-check-label" for="flexSwitchCheckDefault">Changement climat > </label></li>
+                <li><br><input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"><label class="form-check-label" for="flexSwitchCheckDefault">Feu de forêt > </label></li>
+            </ul>-->
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Zone de Chaleur
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="form-check form-switch"><br><label class="form-check-label" for="flexSwitchCheckDefault">Enable</label><input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Tempête
+                    </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="form-check form-switch"><br><label class="form-check-label" for="flexSwitchCheckDefault">Enable </label><input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Pollution plastique
+                    </button>
+                  </h2>
+                  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="form-check form-switch"><br><label class="form-check-label" for="flexSwitchCheckDefault">Enable </label><input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                       Changement climat
+                      </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                          <div class="form-check form-switch"><br><label class="form-check-label" for="flexSwitchCheckDefault">Enable </label><input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                      Feu de forêt 
+                      </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                          <div class="form-check form-switch"><br><label class="form-check-label" for="flexSwitchCheckDefault">Enable </label><input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"></div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+    <div id="settings">
+        <h1 class="center">Paramètres</h1>
+            <ul>
+            <li><label>Zoom carte : </label><input type="range" width="100px"></li>
+            
+            </ul>
+    </div>
+    </div>
+    
+    <div id="map"></div>
+    <div id="menubars" class="menubarsoff" onclick="changeClassNew()"><i class="fas fa-bars"></i></div>
+    <script src="script.js"></script>
+    <script src="api.openweathermap.org/data/2.5/weather?q={London}&appid={0ed1adbb9f9524c0e55ca4c083bf2741}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
