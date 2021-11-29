@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/brands.min.css" integrity="sha512-lCU0XyQA8yobR7ychVxEOU5rcxs0+aYh/9gNDLaybsgW9hdrtqczjfKVNIS5doY0Y5627/+3UVuoGv7p8QsUFw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body>
 
@@ -104,19 +105,32 @@
                     </div>
                   </div>
               </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSix">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    Pollution de l'air
+                  </button>
+                </h2>
+                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                      <div class="form-check form-switch"><br><label class="form-check-label" for="flexSwitchCheckDefault">Enable </label><input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onchange="PollutionAir();"></div>
+                  </div>
+                </div>
+              </div>
     <div id="settings">
         <h1 class="center">Paramètres</h1>
             <ul>
-            <li><label>Zoom carte : </label><input type="range" width="100px"></li>
-            
+                <li> <div class="form-check form-switch"><br><label class="form-check-label" for="flexSwitchCheckDefault">Enable Map </label><input class="form-check-input" type="checkbox" role="switch" id="EnableMap" onclick="activemap();"></div></li>
+                <li><label>Zoom carte : </label><input type="range" width="100px"></li>
             </ul>
     </div>
     </div>
     
-    <div id="map"></div>
+  
     <div id="menubars" class="menubarsoff" onclick="changeClassNew()"><i class="fas fa-bars"></i></div>
     <script src="script.js"></script>
-    <script src="api.openweathermap.org/data/2.5/weather?q={London}&appid={0ed1adbb9f9524c0e55ca4c083bf2741}"></script>
+    <script class="ScriptMap"  src="api.openweathermap.org/data/2.5/weather?q={London}&appid={0ed1adbb9f9524c0e55ca4c083bf2741}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
