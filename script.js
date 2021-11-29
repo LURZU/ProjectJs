@@ -1,3 +1,21 @@
+
+window.addEventListener("load", function(event) {
+    var generatediv = d3.selectAll("#layoutmap").append("div").attr('id', 'map');
+    var map = L.map('map', {
+        zoomControl: false}).setView([51.505, -0.09], 11);
+    map.addLayer(osmLayer).addLayer(waqiLayer);
+    console.log(map)
+  });
+
+
+//API Pour carte de pollution de l'air
+
+var OSM_URL = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var OSM_ATTRIB = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a>contributors';
+var osmLayer= L.tileLayer(OSM_URL,{attribution: OSM_ATTRIB}); 
+var WAQI_URL = "https://tiles.waqi.info/tiles/usepa-aqi/{z}/{x}/{y}.png?token=_TOKEN_ID_";
+var WAQI_ATTR = 'Air Quality Tiles &copy; <a href="http://waqi.info">waqi.info</a>';
+var waqiLayer = L.tileLayer(WAQI_URL, {attribution: WAQI_ATTR}); 
 //API Pour carte de pollution de l'air
 
 var OSM_URL = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -8,16 +26,27 @@ var WAQI_ATTR = 'Air Quality Tiles &copy; <a href="http://waqi.info">waqi.info</
 var waqiLayer = L.tileLayer(WAQI_URL, {attribution: WAQI_ATTR}); 
 
 //var scriptMap = document.getElementById("ScriptMap");
-  var generatediv = d3.select("body").append("div").attr('id', 'map');
-function activemap(){
-  
+  function activemap(){
+  //Si 
     if (document.getElementById("EnableMap").checked == true){
-            var map = L.map('map', {
+ OSM_URL = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+ OSM_ATTRIB = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a>contributors';
+ osmLayer= L.tileLayer(OSM_URL,{attribution: OSM_ATTRIB}); 
+ WAQI_URL = "https://tiles.waqi.info/tiles/usepa-aqi/{z}/{x}/{y}.png?token=_TOKEN_ID_";
+ WAQI_ATTR = 'Air Quality Tiles &copy; <a href="http://waqi.info">waqi.info</a>';
+ waqiLayer = L.tileLayer(WAQI_URL, {attribution: WAQI_ATTR}); 
+   generatediv = d3.selectAll("#layoutmap").append("div").attr('id', 'map');
+   map = L.map('map', {
     zoomControl: false}).setView([51.505, -0.09], 11);
 map.addLayer(osmLayer).addLayer(waqiLayer);
+console.log(map)
+
+
     }else{
-        document.getElementById("map").remove();
-        d3.select("body").prepend(generatediv)
+        document.getElementById("layoutmap").innerHTML = ""
+      
+        
+        
     }
   
 }
