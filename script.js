@@ -1,80 +1,49 @@
 
-window.addEventListener("load", function(event) {
-    var generatediv = d3.selectAll("#layoutmap").append("div").attr('id', 'map');
-    var map = L.map('map', {
-        zoomControl: false}).setView([51.505, -0.09], 11);
-    map.addLayer(osmLayer).addLayer(waqiLayer);
-    console.log(map)
-  });
-
-
 //API Pour carte de pollution de l'air
 
 
-var OSM_URL = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-var OSM_ATTRIB = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a>contributors';
-var osmLayer= L.tileLayer(OSM_URL,{attribution: OSM_ATTRIB}); 
-var WAQI_URL = "https://tiles.waqi.info/tiles/usepa-aqi/{z}/{x}/{y}.png?token=_TOKEN_ID_";
-var WAQI_ATTR = 'Air Quality Tiles &copy; <a href="http://waqi.info">waqi.info</a>';
-var waqiLayer = L.tileLayer(WAQI_URL, {attribution: WAQI_ATTR}); 
-
-//var scriptMap = document.getElementById("ScriptMap");
-  function activemap(){
-  //Si 
-    if (document.getElementById("EnableMap").checked == true){
- OSM_URL = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
- OSM_ATTRIB = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a>contributors';
- osmLayer= L.tileLayer(OSM_URL,{attribution: OSM_ATTRIB}); 
- WAQI_URL = "https://tiles.waqi.info/tiles/usepa-aqi/{z}/{x}/{y}.png?token=_TOKEN_ID_";
- WAQI_ATTR = 'Air Quality Tiles &copy; <a href="http://waqi.info">waqi.info</a>';
- waqiLayer = L.tileLayer(WAQI_URL, {attribution: WAQI_ATTR}); 
-   generatediv = d3.selectAll("#layoutmap").append("div").attr('id', 'map');
-   map = L.map('map', {
-    zoomControl: false}).setView([51.505, -0.09], 11);
-map.addLayer(osmLayer).addLayer(waqiLayer);
-console.log(map)
 
 
-    }else{
-        document.getElementById("layoutmap").innerHTML = ""
+
+  //permet d'activer la map (bouton)
+  var map = L.map('map').setView([51.505, -0.09], 13);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19,
+}).addTo(map);
+
+
+
+function getAPI() {
+    const url = "https://api.waqi.info/feed/montpellier/?token=759f43417454ac9ceb83d8f0ff749abdf3a652e9";
+
+    // soit les utilisateurs existent et sont stockés dans localStorage
+    // si oui, on renvoie le JSON
+    // si non, on sollicite l'API, on sauvegarde et on renvoit
+
+        fetch(url).then(function (response) {
+            return response.json();
+        }).then(function (my_json) {
+            // console.log(my_json);
+            console.log(my_json);
+            console.log(my_json.data.city.geo);
+            const string = JSON.stringify(my_json);
+           
+                var marker = L.marker(my_json.data.city.geo).addTo(map);
+             
+              
+              
+        });
+
+
       
+
         
-        
-    }
-  
 }
-//canvas.JS
-    window.onload = function () {
-        var chart = new CanvasJS.Chart("chartContainer", {
-            backgroundColor: ""
-           });
-        chart.options.axisY = { prefix: "$", suffix: "K" };
-        chart.options.title = { text: "Taux de pollution par ville" };
-        var series1 = { //dataSeries - first quarter
-            type: "column",
-            name: "Pollution",
-            showInLegend: true
-        };
-        chart.options.data = [];
-        chart.options.data.push(series1);
-        series1.dataPoints = [
-                { label: "Montpellier", y: 58 },
-                { label: "Seattle", y: 69 },
-                { label: "Pékin", y: 80 },
-                { label: "tokyo", y: 74 },
-                { label: "Berlin", y: 64 }
-        ];
-    
-        
-        chart.render();
-    }
-   
-    chart.options.data.push(series1);
-	chart.render();
+getAPI();
 
-
-//click menu 
-
+//Interaction bouton menu
 function changeClass() { 
     document.getElementById('menu').className = "menuoff"; 
     document.getElementById('menubars').className = "menubars"; 
@@ -96,7 +65,6 @@ function changeClassNew() {
 //Histograme 
 
 //filtre 
-
 var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
 var collapseList = collapseElementList.map(function (collapseEl) {
   return new bootstrap.Collapse(collapseEl)
