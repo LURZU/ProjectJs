@@ -123,10 +123,23 @@ function getAPI(url, keyName) {
 
 //marqueur polution de l'air
 function marker_polutionDeLair(data){
+    var AirIcon = L.Icon.extend({
+        options: {
+            iconSize:     [65, 70],
+            shadowSize:   [50, 64],
+            iconAnchor:   [30, 65],
+            shadowAnchor: [4, 62],
+            popupAnchor:  [-3, -76]
+        }
+    });
+    var GairIcon = new AirIcon({iconUrl: 'image/green-mask.png'}),
+        YairIcon = new AirIcon({iconUrl: 'image/yellow-mask.png'}),
+        RairIcon = new AirIcon({iconUrl: 'image/red-mask.png'}),
+        PairIcon = new AirIcon({iconUrl: 'image/purple-mask.png'});
 
-    console.log(data.data[0]);
-    data.data.forEach(station => {
-        var marker = markersClusterAirPolution.addLayer(L.marker([station.lat, station.lon]));
+    //console.log("se lance");
+    data.data.forEach(station => { 
+        var marker = markersClusterAirPolution.addLayer(L.marker([station.lat, station.lon], {icon: GairIcon}));
         markers_polutionAir[station.uid] = marker;
     });
     map.addLayer(markersClusterAirPolution);
