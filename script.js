@@ -90,42 +90,91 @@ var markersClusterAirPolution = L.markerClusterGroup();
 //boundarys of the map x1, y1, x2, y2
 //var boundMap = [map.getBounds()._northEast.lat, map.getBounds()._northEast.lng, map.getBounds()._southWest.lat, map.getBounds()._southWest.lng];
 
-//89.99994526655283 589.2187500000001 -89.9947414962234 -1431.5625 world bound
-
-//Functions ////////////////////////////////////////////////////////
-
 map.on("moveend", function(){
 });
 
+function getAPI(url, keyName) {
 
-
-function getAPI() {
-    const url = "https://api.waqi.info/feed/montpellier/?token=759f43417454ac9ceb83d8f0ff749abdf3a652e9";
-
-    // soit les utilisateurs existent et sont stockés dans localStorage
-    // si oui, on renvoie le JSON
-    // si non, on sollicite l'API, on sauvegarde et on renvoit
+    const users_string = localStorage.getItem(keyName);
+    if (users_string == null) {
+        console.log("rien n'est mémorisé");
 
         fetch(url).then(function (response) {
             return response.json();
         }).then(function (my_json) {
-            // console.log(my_json);
-            console.log(my_json);
-            console.log(my_json.data.city.geo);
+            //console.log(my_json);
+
             const string = JSON.stringify(my_json);
-           
-                var marker = L.marker(my_json.data.city.geo).addTo(map);
-             
-              
-              
+            localStorage.setItem(keyName, string);
+            //appeller fonction
+            marker_polutionDeLair(my_json);
         });
 
+    } else {
+        console.log("données enregistrers");
+        my_json = JSON.parse(users_string);
+        //  console.log(my_json);
 
-      
-
-        
+        //appeller fonction
+        marker_polutionDeLair(my_json);
+    }
 }
-getAPI();
+
+
+//marqueur polution de l'air
+function marker_polutionDeLair(data){
+
+    console.log(data.data[0]);
+    data.data.forEach(station => {
+        var marker = markersClusterAirPolution.addLayer(L.marker([station.lat, station.lon]));
+        markers_polutionAir[station.uid] = marker;
+    });
+    map.addLayer(markersClusterAirPolution);
+}
+
+
+
+
+//easystring pour stocker plus de valeur 
+////////////////////////////////////////////Pollution Marine ////////////////////////////////////////////////////////////////////
+function pollutionMarine(){
+    d3.csv('data/MLW_Data.csv').then( function(d) {
+    //Tableau d'objet "data" 
+    //création des icone de marqueur 
+    markersCluster = L.markerClusterGroup();
+    var MarineIcon = L.Icon.extend({
+        options: {
+            iconSize:     [65, 70],
+            shadowSize:   [50, 64],
+            iconAnchor:   [22, 94],
+            shadowAnchor: [4, 62],
+            popupAnchor:  [-3, -76]
+        }
+    });
+    var greenIcon = new MarineIcon({iconUrl: 'image/green_marineflag.png'}),
+        redIcon = new MarineIcon({iconUrl: 'image/red_marineflag.png'});
+      //parcourt le tableau d'objet data
+      console.log(d[0])
+    d.forEach(function(data) {
+        //Vérification de si la plage est propre ou non 
+         if(data.EventType == "Cleanup"){
+        //création de tout les marker en cluster avec longitude et latitude 
+        marker = markersCluster.addLayer(L.marker([data.lat_y1, data.lon_x1], {icon: greenIcon}).bindPopup('<p>'+data.BeachName+'<br /> Netoyage fait le '+data.EventDate +'</p>').openPopup());
+
+         }else if(data.EventType == "Monitoring"){
+            marker = markersCluster.addLayer(L.marker([data.lat_y1, data.lon_x1], {icon: redIcon}).bindPopup('<p>'+data.BeachName+'<br /> Dernier nettoyage fait le'+data.EventDate+ '</p>').openPopup());
+
+         }
+         //créationdu popup adresse
+         //ajout du cluster sur la map
+        map.addLayer(marker);
+    });
+    });
+}
+
+/////////////////////////////////////////////////// Menu ////////////////////////////////////////////////////////
+
+
 
 //Interaction bouton menu
 function changeClass() { 
