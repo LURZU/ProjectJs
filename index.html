@@ -26,6 +26,7 @@
   <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
+  <!--<script src="scriptlayer.js"></script>-->
 <div id="menu" class="menu">
    
     <button class="oldClass" onclick="changeClass()"id="cross"><a><i class="fas fa-plus"></i></a></button>
@@ -50,7 +51,7 @@
                   </h2>
                   <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <div class="form-check form-switch"><br><label class="form-check-label" for="flexSwitchCheckDefault">Afficher la qualité de l'air</label><input onclick="layerchange();" value="air" class="form-check-input" type="checkbox" name="PollutionAir" role="switch" id="air"></div>
+                        <div class="form-check form-switch"><br><label class="form-check-label" for="flexSwitchCheckDefault">Afficher la qualité de l'air</label><input onclick="buttonPollutionAir();" value="air" class="form-check-input" type="checkbox" name="PollutionAir" role="switch" id="air"></div>
                     </div>
                   </div>
                 </div>
@@ -62,7 +63,7 @@
                   </h2>
                   <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <div class="form-check form-switch"><br><label class="form-check-label" for="flexSwitchCheckDefault">Afficher l'état des plages </label><input onclick="layerchange();"  name="PollutionPlastique" class="form-check-input" type="checkbox" role="switch" id="plastique2"></div>
+                        <div class="form-check form-switch"><br><label class="form-check-label" for="flexSwitchCheckDefault">Afficher l'état des plages </label><input onclick="buttonPollutionMarine();"  class="form-check-input" type="checkbox" role="switch" id="plastique2" name="PollutionPlastique"></div>
                     </div>
                   </div>
                 </div>
